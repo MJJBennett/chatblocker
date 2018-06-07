@@ -1,0 +1,10 @@
+{
+    "extName": {
+        "message": "Twitch Chat Blocker",
+        "description": "The extension's name."
+    },
+    "extDesc": {
+        "message": "Blocks Twitch chat messages.",
+        "description": "The extension's description."
+    }
+}
