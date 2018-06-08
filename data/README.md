@@ -4,7 +4,6 @@ Example JSON:
 
 ```JSON
 {
-
     "block_if_contains": [
         "word/phrase, message will be removed if it contains in any place this word/phrase",
         "another word or phrase"
