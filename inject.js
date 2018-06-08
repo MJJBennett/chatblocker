@@ -5,7 +5,7 @@
  * This script was created with some code & inspiration from the following tutorial:
  * http://www.nhatqbui.com/programming/2016/11/22/howtobuildatwitchchatchromeext.html
  * 
- * Version 0.1.1:
+ * Version 0.1.2:
  *   - Removes messages if the is_blocked(text, sender) returns true for that message. 
  * 
  * Future development should allow for the creation of regexes in order to properly parse
