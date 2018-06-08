@@ -36,6 +36,6 @@
       "activeTab"
     ],
     "web_accessible_resources": [
-        "data/blocklist.json"
+        "data/conf.json"
     ]
 }

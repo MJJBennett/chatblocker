@@ -17,16 +17,20 @@
 var html_body = $("body")[0];
 
 //This may not be necessary:
-debugger;
-console.log("hi");
+//debugger;
 
 //Some persistent variables
 var hidden_messages = 0;
 
+function fetch_conf(url) {
+    return fetch(url)
+}
 
-const url = chrome.runtime.getUrl('config.json');
-const response = await fetch(url);
-const config = await response.json();
+const confurl = chrome.runtime.getURL('data/conf.json');
+var config;
+
+//We only want to know when there are updates to the list of children and nothing else.
+var obs_config = { attributes: false, childList: true, characterData: false };
 
 var is_blocked = function(text, sender) {
     for (var i = 0; i < config.block_if_contains.length; i++) {
@@ -46,7 +50,7 @@ var chatLoadedObserver = new MutationObserver(function (mutations, observer) {
         //If it exists, we have found the chat window.
         if (chat_messages.length > 0) {
             console.log("ChatBlocker: Found the chat window.");
-            chatObserver.observe(chat_messages[0], config);
+            chatObserver.observe(chat_messages[0], obs_config);
             observer.disconnect();
         }
     });
@@ -71,6 +75,11 @@ var chatObserver = new MutationObserver(function (mutations) {
     });
 });
 
-//We only want to know when there are updates to the list of children and nothing else.
-var config = { attributes: false, childList: true, characterData: false };
-chatLoadedObserver.observe(html_body, config);
+fetch(confurl)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(json) {
+    config = json;
+    chatLoadedObserver.observe(html_body, obs_config);
+  });
