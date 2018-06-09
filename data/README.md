@@ -8,6 +8,11 @@ Example JSON:
         "word/phrase, message will be removed if it contains in any place this word/phrase",
         "another word or phrase"
     ],
+    "block_if_is": [
+        "pog",
+        "f",
+        "kale"
+    ],
     "block_if_user": [
         "exact username you want to remove messages from",
         "another username"

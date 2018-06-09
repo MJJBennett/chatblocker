@@ -39,6 +39,10 @@ var is_blocked = function(text, sender) {
     for (var i = 0; i < config.block_if_user.length; i++) {
         if (sender == config.block_if_user[i]) return true;
     }
+    for (var i = 0; i < config.block_if_is.length; i++) {
+        //Case insensitive
+        if (text.toLowerCase() == config.block_if_is[i].toLowerCase()) return true;
+    }
     return false;
 };
 
@@ -69,7 +73,7 @@ var chatObserver = new MutationObserver(function (mutations) {
             //console.log(text);
             if (is_blocked(text, sender)) {
                 if (++hidden_messages %2 == 0) console.log("Have now removed " + hidden_messages + " messages!"); 
-                chatMessage.remove();
+                chatMessage.hide();
             }
         });
     });
