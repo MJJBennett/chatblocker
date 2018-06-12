@@ -5,7 +5,7 @@
  * This script was created with some code & inspiration from the following tutorial:
  * http://www.nhatqbui.com/programming/2016/11/22/howtobuildatwitchchatchromeext.html
  * 
- * Version 0.1.2:
+ * Version 0.1.3:
  *   - Removes messages if the is_blocked(text, sender) returns true for that message. 
  * 
  * Future development should allow for the creation of regexes in order to properly parse
@@ -46,6 +46,22 @@ var is_blocked = function(text, sender) {
     return false;
 };
 
+function parse_text(message) {
+    //chatMessage.children("span[data-a-target='chat-message-text']").text();
+    text = "";
+    message.children("span").each(function(){
+        if ($(this).attr("data-a-target") == "chat-message-text" || $(this).attr("data-a-target") == "emote-name") {
+            if ($(this).attr("data-a-target") == "chat-message-text") {
+                text = text + $(this).text();
+            }
+            else {
+                text = text + $(this).children("img").attr("alt");
+            }
+        }
+    });
+    return text;
+}
+
 var chatLoadedObserver = new MutationObserver(function (mutations, observer) {
     mutations.forEach(function (mutation) {
         //Currently, the chat window is a div with role="log".
@@ -67,12 +83,13 @@ var chatObserver = new MutationObserver(function (mutations) {
             var chatMessage = $(addedNode);
             if (!chatMessage.is(".chat-line__message")) return;
             //console.log(chatMessage);
-            text = chatMessage.children("span[data-a-target='chat-message-text']").text();
+            //text = chatMessage.children("span[data-a-target='chat-message-text']").text();
+            text = parse_text(chatMessage);
             sender = chatMessage.children(".chat-line__username").find(".chat-author__display-name").attr("data-a-user");
             //console.log(sender);
             //console.log(text);
             if (is_blocked(text, sender)) {
-                if (++hidden_messages %2 == 0) console.log("Have now removed " + hidden_messages + " messages!"); 
+                if (++hidden_messages %config.notify_on_every_x_messages == 0) console.log("Have now hidden " + hidden_messages + " messages!"); 
                 chatMessage.hide();
             }
         });
