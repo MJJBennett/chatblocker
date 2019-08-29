@@ -49,14 +49,14 @@ var is_blocked = function(text, sender) {
 function parse_text(message) {
     //chatMessage.children("span[data-a-target='chat-message-text']").text();
     text = "";
-    message.children("span").each(function(){
-        if ($(this).attr("data-a-target") == "chat-message-text" || $(this).attr("data-a-target") == "emote-name") {
-            if ($(this).attr("data-a-target") == "chat-message-text") {
-                text = text + $(this).text();
-            }
-            else {
-                text = text + $(this).children("img").attr("alt");
-            }
+    message.find("span").each(function() {
+        // If the "data-a-target" attribute is "chat-message-text" just add it in
+        if ($(this).attr("data-a-target") == "chat-message-text") {
+            text = text + $(this).text();
+        }
+        // Otherwise if it's "emote-name" translate its image child to text
+        else if ($(this).attr("data-a-target") == "emote-name") {
+            text = text + $(this).children("img").attr("alt");
         }
     });
     return text;
@@ -69,7 +69,7 @@ var chatLoadedObserver = new MutationObserver(function (mutations, observer) {
         var chat_messages = $('div[role="log"]');
         //If it exists, we have found the chat window.
         if (chat_messages.length > 0) {
-            console.log("ChatBlocker: Found the chat window.");
+            console.log("ChatBlocker: Found the chat window. hidden_messages initialized.");
             chatObserver.observe(chat_messages[0], obs_config);
             observer.disconnect();
         }
