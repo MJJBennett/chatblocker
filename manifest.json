@@ -37,5 +37,21 @@
     ],
     "web_accessible_resources": [
         "data/conf.json"
-    ]
+    ],
+    "commands": {
+        "flag-instead": {
+            "suggested_key": {
+                "default": "Ctrl-Shift-Alt-U"
+            },
+            "description": "Flag but do not delete matching messages."
+        }
+    },
+    "commands": {
+        "verbose-cmd": {
+            "suggested_key": {
+                "default": "Ctrl-Shift-Alt-V"
+            },
+            "description": "Print things to console."
+        }
+    }
 }
