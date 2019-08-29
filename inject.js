@@ -22,19 +22,9 @@ var html_body = $("body")[0];
 //Some persistent variables
 var hidden_messages = 0;
 
-var do_flag = false;
-var verbose = false;
-
 function fetch_conf(url) {
     return fetch(url)
 }
-
-window.browser.commands.onCommand.addListener(function(cmd) {
-if (cmd == "flag-instead") console.log("Flagging instead!");
-});
-window.browser.commands.onCommand.addListener(function(cmd) {
-if (cmd == "verbose-cmd") console.log("Verbose instead!");
-});
 
 const confurl = chrome.runtime.getURL('data/conf.json');
 var config;
