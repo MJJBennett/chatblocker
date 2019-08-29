@@ -1,12 +1,12 @@
 # Twitch Chat Blocker
 
-A Chrome extension to allow blocking of twitch chat users and messages.
+A Chrome extension (also compatible with Firefox) to allow blocking of Twitch chat users and messages.
 
 # Usage
 
-This is an extension mostly meant for personal use; as such, if you'd like to make use of it yourself, it will need some additional setup that a normal Chrome extension wouldn't.
+This is an extension mostly meant for personal use; as such, if you'd like to make use of it yourself, it will need some additional setup that a normal extension wouldn't.
 
-After downloading the extension, also download a compressed/minified copy of JQuery (from [here](https://jquery.com/download/)) and place it in the extension's root directory, making sure it is mentioned in the manifest.json file.
+After downloading the extension, also run `setup.sh` in order to download version 3.3.1 of JQuery.
 
 As well, you will need to edit the data/README.md file according to the specifications within.
 
